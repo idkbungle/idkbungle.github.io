@@ -236,3 +236,17 @@ async function _getTagSupportedLangs(tag: string): Promise<Language[]> {
 }
 
 export const getTagSupportedLangs = memoize(_getTagSupportedLangs)
+
+/**
+ * Fixed categories from config, each with its posts (empty ones included)
+ */
+async function _getCategoriesWithPosts(lang?: Language) {
+  const { themeConfig } = await import('@/config')
+  const posts = await getPosts(lang)
+  return themeConfig.categories.map(cat => ({
+    ...cat,
+    posts: posts.filter((post: Post) => post.data.category === cat.name),
+  }))
+}
+
+export const getCategoriesWithPosts = memoize(_getCategoriesWithPosts)

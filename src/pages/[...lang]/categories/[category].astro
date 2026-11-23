@@ -1,0 +1,39 @@
+---
+import CategoryList from '@/components/CategoryList.astro'
+import PostList from '@/components/PostList.astro'
+import { allLocales, themeConfig } from '@/config'
+import { getLangFromLocale, getLangRouteParam } from '@/i18n/lang'
+import Layout from '@/layouts/Layout.astro'
+import { getCategoriesWithPosts } from '@/utils/content'
+
+export async function getStaticPaths() {
+  return allLocales.flatMap(lang =>
+    themeConfig.categories.map(cat => ({
+      params: { lang: getLangRouteParam(lang), category: cat.slug },
+      props: { slug: cat.slug },
+    })),
+  )
+}
+
+interface Props {
+  slug: string
+}
+
+const { slug } = Astro.props
+const currentLang = getLangFromLocale(Astro.currentLocale)
+const cats = await getCategoriesWithPosts(currentLang)
+const current = cats.find(c => c.slug === slug)
+const posts = current?.posts ?? []
+---
+
+<Layout>
+  <div class="uno-decorative-line" />
+  <CategoryList
+    categories={cats.map(c => ({ name: c.name, slug: c.slug, count: c.posts.length }))}
+    current={slug}
+    lang={currentLang}
+  />
+  {posts.length > 0
+    ? <PostList posts={posts} lang={currentLang} />
+    : <p class="c-secondary/70">这个分类还没有文章，敬请期待。</p>}
+</Layout>

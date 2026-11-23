@@ -4,7 +4,7 @@ export const themeConfig: ThemeConfig = {
   // SITE INFORMATION >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> START
   site: {
     // site title
-    title: "Leo's Blog",
+    title: 'Leo\'s Blog',
     // site subtitle
     subtitle: '技术学习与项目实践',
     // site description
@@ -12,7 +12,7 @@ export const themeConfig: ThemeConfig = {
     // use i18n title/subtitle/description from src/i18n/ui.ts instead of static ones above
     i18nTitle: false, // true | false
     // author name
-    author: '刘红江',
+    author: 'Leo',
     // site url
     url: 'https://blog.trageek.com',
     // base path
@@ -157,6 +157,18 @@ export const themeConfig: ThemeConfig = {
   },
   // SEO SETTINGS >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> END
 
+  // CATEGORY SETTINGS
+  // fixed post categories, in display order; set `category:` in a post's frontmatter to one of these names
+  // slug is used in the URL: /categories/<slug>/
+  categories: [
+    { name: '开源项目', slug: 'opensource' },
+    { name: 'LLM&AI', slug: 'llm-ai' },
+    { name: 'English', slug: 'english' },
+    { name: '搞七捻三', slug: 'misc' },
+    { name: '业务', slug: 'business' },
+    { name: '个人项目', slug: 'projects' },
+  ],
+
   // FOOTER SETTINGS >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> START
   footer: {
     // social links
@@ -167,7 +179,7 @@ export const themeConfig: ThemeConfig = {
       },
       {
         name: 'GitHub',
-        url: 'https://github.com/idkbungle',
+        url: 'https://github.com/continue33',
       },
       // {
       //   name: 'X',
@@ -175,7 +187,7 @@ export const themeConfig: ThemeConfig = {
       // },
     ],
     // year of website start
-    startYear: 2026,
+    startYear: 2023,
   },
   // FOOTER SETTINGS >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> END
 

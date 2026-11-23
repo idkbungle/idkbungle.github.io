@@ -6,6 +6,7 @@ interface Translation {
   description: string
   posts: string
   tags: string
+  categories?: string
   about: string
   toc: string
 }
@@ -98,6 +99,7 @@ export const ui: Record<Language, Translation> = {
     description: 'Retypeset是一款基于Astro框架的静态博客主题，中文名为重新编排。本主题以活版印字为设计灵感，通过建立全新的视觉规范，对所有页面进行重新编排，打造纸质书页般的阅读体验，再现版式之美。所见皆为细节，方寸尽显优雅。',
     posts: '文章',
     tags: '标签',
+    categories: '分类',
     about: '关于',
     toc: '目录',
   },
@@ -107,6 +109,7 @@ export const ui: Record<Language, Translation> = {
     description: 'Retypeset是一款基於Astro框架的靜態部落格主題，中文名為重新編排。本主題以活版印字為設計靈感，通過建立全新的視覺規範，對所有頁面進行重新編排，打造紙質書頁般的閱讀體驗，再現版式之美。所見皆為細節，方寸盡顯優雅。',
     posts: '文章',
     tags: '標籤',
+    categories: '分類',
     about: '關於',
     toc: '目錄',
   },

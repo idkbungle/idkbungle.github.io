@@ -1,0 +1,31 @@
+---
+import type { Language } from '@/i18n/config'
+import { base, defaultLocale } from '@/config'
+
+interface Props {
+  categories: { name: string, slug: string, count: number }[]
+  current?: string
+  lang: Language
+}
+
+const { categories, current = '', lang } = Astro.props
+function href(slug: string) {
+  const p = lang === defaultLocale ? `/categories/${slug}/` : `/${lang}/categories/${slug}/`
+  return base ? `${base}${p}` : p
+}
+---
+
+<div class="no-heti mb-10.5 flex flex-wrap gap-x-3 gap-y-3.2">
+  {categories.map(cat => (
+    <a
+      href={href(cat.slug)}
+      class:list={[
+        'relative inline-block border border-secondary/25 rounded-full px-3.2 py-0.7 ring-secondary/80',
+        'transition-[colors,box-shadow] ease-out hover:(border-secondary/80 c-primary font-medium ring-0.2)',
+        current === cat.slug ? 'border-secondary/80 c-primary font-medium ring-0.2' : 'ring-0',
+      ]}
+    >
+      {cat.name}<span class="ml-1.2 opacity-60">{cat.count}</span>
+    </a>
+  ))}
+</div>

@@ -1,0 +1,24 @@
+---
+import CategoryList from '@/components/CategoryList.astro'
+import { allLocales } from '@/config'
+import { getLangFromLocale, getLangRouteParam } from '@/i18n/lang'
+import Layout from '@/layouts/Layout.astro'
+import { getCategoriesWithPosts } from '@/utils/content'
+
+export async function getStaticPaths() {
+  return allLocales.map(lang => ({
+    params: { lang: getLangRouteParam(lang) },
+  }))
+}
+
+const currentLang = getLangFromLocale(Astro.currentLocale)
+const cats = await getCategoriesWithPosts(currentLang)
+---
+
+<Layout>
+  <div class="uno-decorative-line" />
+  <CategoryList
+    categories={cats.map(c => ({ name: c.name, slug: c.slug, count: c.posts.length }))}
+    lang={currentLang}
+  />
+</Layout>

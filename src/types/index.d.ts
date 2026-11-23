@@ -81,6 +81,11 @@ export interface ThemeConfig {
     }
     apiflashKey?: string
   }
+  categories: {
+    name: string
+    slug: string
+  }[]
+
   footer: {
     links: {
       name: string
