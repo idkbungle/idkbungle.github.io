@@ -1,89 +1,92 @@
-# Retypeset
+# Leo's Blog
 
-![Cover Image](assets/images/v1/retypeset-en-desktop.webp)
-![Cover Image](assets/images/v1/retypeset-en-mobile.webp)
+个人博客，基于 [Astro](https://astro.build/) 和 [Retypeset](https://github.com/radishzzz/astro-theme-retypeset) 主题，地址 https://blog.trageek.com 。
 
-[简体中文](assets/docs/README.zh.md)｜[繁体中文](assets/docs/README.zh-tw.md)｜[日本語](assets/docs/README.ja.md)｜[Español](assets/docs/README.es.md)｜[Français](assets/docs/README.fr.md)｜[Русский](assets/docs/README.ru.md)
+内容全部放在这个仓库里，push 到 `main` 后由 GitHub Actions（`.github/workflows/deploy.yml`）自动构建并发布到 GitHub Pages。
 
-Retypeset is a static blog theme based on the [Astro](https://astro.build/) framework. Inspired by [Typography](https://astro-theme-typography.vercel.app/), Retypeset establishes a new visual standard and reimagines the layout of all pages, creating a reading experience reminiscent of paper books, reviving the beauty of typography. Details in every sight, elegance in every space.
+> 主题原版说明见 [assets/docs/README.theme.en.md](assets/docs/README.theme.en.md) 和 [assets/docs/README.zh.md](assets/docs/README.zh.md)。
 
-## Demo
+## 写一篇博文
 
-- [Retypeset](https://retypeset.radishzz.cc/en/)
-- [Retipografía](https://retypeset.radishzz.cc/es/)
-- [Переверстка](https://retypeset.radishzz.cc/ru/)
-- [重新编排](https://retypeset.radishzz.cc/)
-- [重新編排](https://retypeset.radishzz.cc/zh-tw/)
-- [再組版](https://retypeset.radishzz.cc/ja/)
+在 `src/content/posts/` 下新建一个 `.md`（或 `.mdx`）文件，文件开头用两行 `---` 包住页首字段（frontmatter），下面写正文。
 
-## Features
+```yaml
+---
+# 必填
+title: 文章标题
+published: 2026-11-24          # 发布日期，也可写 2026-11-24 10:30:00
 
-- Built with Astro and UnoCSS
-- Support for SEO, Sitemap, OpenGraph, RSS, MDX, LaTeX, Mermaid, and TOC
-- i18n support
-- Light / Dark mode
-- Elegant view transitions
-- Rich theme customization
-- Optimized typography
-- Responsive design
-- Comment system
+# 选填（Retypeset 原有字段）
+description: ''                # 列表里的摘要；留空则自动截取正文开头
+updated: ''                    # 更新日期
+tags:                          # 标签
+  - Astro
+draft: false                   # true = 草稿，不发布
+pin: 0                         # 置顶，0-99，数字越大越靠前
+toc: true                      # 是否显示目录
+lang: ''                       # 语言，留空即可
+abbrlink: my-post              # 网址 /posts/my-post/，只能小写字母、数字、连字符
 
-## Performance
+# 本博客新增字段
+category: 个人项目             # 见下方分类列表
+---
 
-<br>
-<p align="center">
-  <a href="https://pagespeed.web.dev/analysis?url=https%3A%2F%2Fretypeset.radishzz.cc%2Fen%2F&form_factor=desktop">
-    <img width="710" alt="Retypeset Lighthouse Score" src="assets/images/retypeset-lighthouse-score.svg">
-  <a>
-</p>
+正文从这里开始写。
+```
 
-## Getting Started
+### 字段说明
 
-1. [Fork](https://github.com/radishzzz/astro-theme-retypeset/fork) this repository, or use this template to create a new repository.
-2. Run the following commands in your terminal:
+| 字段 | 必填 | 说明 |
+| --- | --- | --- |
+| `title` | 是 | 文章标题 |
+| `published` | 是 | 发布日期 |
+| `description` | 否 | 摘要，显示在文章列表和分享卡片；不写则自动取正文开头 |
+| `updated` | 否 | 最后更新日期 |
+| `tags` | 否 | 标签数组，自动生成「标签」页 |
+| `draft` | 否 | `true` 时不会发布 |
+| `pin` | 否 | 置顶权重 0-99 |
+| `toc` | 否 | 是否显示目录，默认开启 |
+| `lang` | 否 | 文章语言，本站只有中文，留空 |
+| `abbrlink` | 否 | 自定义网址，只能用小写字母、数字和 `-`；不写则用文件名 |
+| `category` | 否 | **本站新增**，文章分类，必须是下面列表里的名字之一 |
 
-   ```bash
-   # Clone the repository
-   git clone <repository-url>
+### 分类
 
-   # Navigate to the project directory
-   cd <repository-name>
+分类是固定的，在 `src/config.ts` 的 `categories` 里定义，导航栏「分类」页会列出全部分类（没有文章的也会显示）：
 
-   # Install pnpm globally (if not already installed)
-   npm install -g pnpm
+| 名称 | 网址 |
+| --- | --- |
+| 开源项目 | `/categories/opensource/` |
+| LLM&AI | `/categories/llm-ai/` |
+| English | `/categories/english/` |
+| 搞七捻三 | `/categories/misc/` |
+| 业务 | `/categories/business/` |
+| 个人项目 | `/categories/projects/` |
 
-   # Install dependencies
-   pnpm install
+想加新分类，在 `src/config.ts` 的 `categories` 里加一行 `{ name: '名称', slug: '网址用的英文' }` 即可。
 
-   # Start the development server
-   pnpm dev
-   ```
+### 图片
 
-3. Refer to the [Theme Guide](https://retypeset.radishzz.cc/en/posts/theme-guide/) to customize your blog and create new posts.
-4. Refer to the [Astro Deployment Guides](https://docs.astro.build/en/guides/deploy/) to deploy your blog to Netlify, Vercel, or other platforms.
+正文图片用图床外链，或放在 `src/content/posts/_images/` 下用相对路径引用。
 
-&emsp;[![Deploy to Netlify](assets/images/deploy-netlify.svg)](https://app.netlify.com/start) [![Deploy to Vercel](assets/images/deploy-vercel.svg)](https://vercel.com/new)
+## 星空背景
 
-## Updates
+暗色模式下的双色星空是自写的 WebGL2 着色器（`src/scripts/sky/`）。
 
-Retypeset releases [new features](https://github.com/radishzzz/astro-theme-retypeset/issues/18) from time to time. Simply run `pnpm update-theme` to update the theme. If you encounter merge conflicts, please refer to [this video](https://youtu.be/lz5OuKzvadQ?si=sH_ALNgqxrYqNVQT) for manual resolution.
+- 每次打开网站随机选一套配色（不会和上次相同），配色在 `src/scripts/sky/palettes.ts` 的 `PRESETS` 里。
+- 右侧星形按钮可以换一片天空，一半概率换预设，一半概率随机生成；随机生成的配色会打印在浏览器控制台，喜欢的可以直接复制进 `PRESETS`。
+- 用不上的配色不要删，放在 `src/scripts/sky/archive/unused-palettes.ts`，需要时挪回 `PRESETS`。
 
-## Credits
+## 其他常改的位置
 
-- [Typography](https://github.com/moeyua/astro-theme-typography)
-- [Fuwari](https://github.com/saicaca/fuwari)
-- [Redefine](https://github.com/EvanNotFound/hexo-theme-redefine)
-- [AstroPaper](https://github.com/satnaing/astro-paper)
-- [heti](https://github.com/sivan/heti)
-- [EarlySummerSerif](https://github.com/GuiWonder/EarlySummerSerif)
+- 站点标题、作者、页脚链接、起始年份：`src/config.ts`
+- 关于页：`src/content/about/about-zh.md`
+- 网站图标：`public/icons/favicon.svg`
 
-## Star History
+## 本地预览
 
-<p align="center">
-<a href="https://star-history.com/#radishzzz/astro-theme-retypeset&Date">
-  <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/svg?repos=radishzzz/astro-theme-retypeset&type=Date&theme=dark" />
-    <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/svg?repos=radishzzz/astro-theme-retypeset&type=Date" />
-    <img alt="Star History Chart" src="https://api.star-history.com/svg?repos=radishzzz/astro-theme-retypeset&type=Date" />
-  </picture>
-</p>
+```bash
+pnpm install
+pnpm dev        # http://localhost:4321
+pnpm build      # 输出到 dist/
+```
